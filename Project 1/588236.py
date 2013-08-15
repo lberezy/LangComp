@@ -130,14 +130,17 @@ def build_index(in_file, out_file):
     # count/total appearances = frequency
     print(wcf.items())
     wcf = {word: (wcf[word] / wordfreq[word]) for word in wordfreq.keys()}
+    
     print(wcf.items())
     print(wordlenfreq.items())
     print('blah')
     print(lcf.items())
+    
     lcf = {word: (lcf[word]/wordlenfreq[len(word)]) for word in wordfreq.keys()}
 
     print(lcf.items())
     print(fullcaps)
+    
     out = open(out_file, 'wb')
     pickle.dump(wcf, out, 0)
     pickle.dump(lcf, out, 0)
