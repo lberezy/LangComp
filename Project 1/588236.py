@@ -64,6 +64,7 @@ wordlist = set(words.words())
 common_words_lower = set([w for w in wordlist if w.islower()])
 common_words_titlecase = set([w.lower() for w in wordlist if w.istitle()])
 common_words_fullcaps = set([w.lower() for w in wordlist if w.isupper()])
+
 def truecase(s, threshold=0.8):
     '''Attempts to correctly capitalise words in a sentence through a heuristcs
     of comparing words with their relative probability of casing (data pickle
@@ -72,7 +73,6 @@ def truecase(s, threshold=0.8):
     are evaluated to find a probability that a word should be capitalised, and if
     the combined heuristic reaches a threshold, then then word becomes capitalised'''
 
-    
 
     '''d_file = open(datafile,'rb')
     wcf = pickle.load(d_file)
@@ -81,21 +81,39 @@ def truecase(s, threshold=0.8):
     d_file.close()
 
     s_original = s[:]  # shallow copy'''
-    s.capitalize()
+    s = s.capitalize()
     words = word_tokenize(s)
+    
+    for i in range(1,len(words)):   # begin at second item
+        if words[i-1] in set(['"',"''",'''“''','.','!','?','``']): # capitalise the first word inside any weird quotes
+            print(words[i])
+            words[i] = words[i].capitalize()
 
-    words = [w.capitalize() if w not in common_words_lower and len(w) > 2 else w for w in words]
+    #words = [w.capitalize() if w not in common_words_lower and len(w) >= 2 else w for w in words]
     #words = [w.capitalize() if w in common_words_titlecase and len(w) > 2 else w for w in words]
     #words = [w.upper() if w in common_words_fullcaps and len(w) > 2 else w for w in words]
 
+    for word in words:
+        if word not in common_words_lower:
+            word = word.capitalize()
+        if word in common_words_titlecase:
+            words = word.capitalize()
+        if word in common_words_fullcaps:
+            word = word.upper()
+
+        if word in 'iI':    # any occurance of a lone I should be capitalised
+            #print(word)
+            word = word.capitalize()
+        if word  == 'a':    # any occurance of a lone a should be lowercase
+            #print(word)
+            word = word.lower()
+
     # check to capitalise anything a .!? etc and the first thing inside "quotes"
-    for i in range(1,len(words)):   # begin at second item
-        if words[i-1] in ('"',"'",'''“''','.','!','?'):
-            words[i].capitalize()
+
 
     sentence_string = build_sentence(words)
-    return sentence_string
-
+    #return sentence_string
+    return words
 
 def evaluate(s):
     '''Helper function to evaluate the truecase function.
@@ -121,14 +139,14 @@ def evaluate(s):
 
     # put your code here
 
-    return score/len(orig_sents)
+    return score/len(orig_sents)*100
 
 
 def rate_similarity(sent1, sent2):
     ''' compares two sentences, word for word and returns the percentage
     of words that are identical.'''
 
-    sent1 = word_tokenize(sent1)
+    #sent1 = word_tokenize(sent1)
     sent2 = word_tokenize(sent2)
     count = 0
     if not len(sent1) or not len(sent2):
@@ -137,16 +155,17 @@ def rate_similarity(sent1, sent2):
     for w1,w2 in zip(sent1, sent2):
         if w1 == w2:
             count += 1
-        else:
-            print(w1,w2)
-    return count/len(sent1)
+        # else:
+            #print(w1,w2)
+    return count/len(sent2)
 
 def build_sentence(sent_list):
     '''takes a list of strings that constitute a tokenized sentence
     and attempts to rebuild them into a string with some regex hackery.'''
     sentence = ' '.join(sent_list) # join lists with space separators
-    return re.sub(""" (?=[?'`!.,;:@-])""", '', sentence) # find any "space then punctuation" errors and remove the space
-    # I probably missed some punctuation that needs replacing
+    return re.sub(""" (?=[?'`“!.,;:@-])""", '', sentence) # find any "space then punctuation" errors and remove the space
+    # this function was causing the tokenizer to play up because the tokenizer likes to
+    # do weird stuff with ``quotes''
 
 
 
