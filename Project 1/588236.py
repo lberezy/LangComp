@@ -2,6 +2,12 @@
 # Lucas BEREZY
 # 588236
 
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+import re
+import pickle
+from nltk.corpus import words
+
 """
 <approximately 400 words of discussion about what your program does,
 and what problems you tacked and solved (or could not solve).
@@ -30,13 +36,35 @@ where it cannot be guaranteed the use will use correct casing. If correct casing
 guessed from the input it makes discovering contextual meaning of their input easier and
 may make certain backend queries simpler (correctly casing the name of a movie in a natural
 language request for information on the movie, and the movies actor allows simpler
-extraction of the key information as it can be tagged as a propper noun easier).
+extraction of the key information as it can be tagged as a propper noun easier). Could also be used as
+part of a spellchecker that automatically corrected capitalisation.
 """
 
+# PROBLEMS:
+# nltk.tokenizer.word_tokenizer() tokenizes "" as `` ''
+
+
+
+# ------
 # optionally import NLTK modules here (e.g. tokenizer or corpus)
 
 
-def truecase(s, datafile, threshold=0.8):
+# how to tokenize "and then he said ""where are you?" said someone."
+# ? and then . in a single sentence.
+
+# when building the data file, don't be tricked by title cased words at the start of
+# the text
+
+
+
+
+# need some global data variables
+
+wordlist = set(words.words())
+common_words_lower = set([w for w in wordlist if w.islower()])
+common_words_titlecase = set([w.lower() for w in wordlist if w.istitle()])
+common_words_fullcaps = set([w.lower() for w in wordlist if w.isupper()])
+def truecase(s, threshold=0.8):
     '''Attempts to correctly capitalise words in a sentence through a heuristcs
     of comparing words with their relative probability of casing (data pickle
     obtained by training on #text). Also makes use of NLTK's Part Of Speech (POS)
@@ -44,17 +72,29 @@ def truecase(s, datafile, threshold=0.8):
     are evaluated to find a probability that a word should be capitalised, and if
     the combined heuristic reaches a threshold, then then word becomes capitalised'''
 
-    import cpickle as pickle
+    
 
-    d_file = open(datafile,'rb')
+    '''d_file = open(datafile,'rb')
     wcf = pickle.load(d_file)
     lcf = piclke.load(d_file)
     fullcaps = pickle.load(d_file)
     d_file.close()
 
-    s_original = s[:]  # shallow copy
+    s_original = s[:]  # shallow copy'''
+    s.capitalize()
+    words = word_tokenize(s)
 
-    return t
+    words = [w.capitalize() if w not in common_words_lower and len(w) > 2 else w for w in words]
+    #words = [w.capitalize() if w in common_words_titlecase and len(w) > 2 else w for w in words]
+    #words = [w.upper() if w in common_words_fullcaps and len(w) > 2 else w for w in words]
+
+    # check to capitalise anything a .!? etc and the first thing inside "quotes"
+    for i in range(1,len(words)):   # begin at second item
+        if words[i-1] in ('"',"'",'''“''','.','!','?'):
+            words[i].capitalize()
+
+    sentence_string = build_sentence(words)
+    return sentence_string
 
 
 def evaluate(s):
@@ -64,10 +104,52 @@ def evaluate(s):
     correct cased texts and returns a floating point percentage of words
     cased correctly.'''
 
+
     t = s.lower()
+    score = 0.0
+
+    orig_sents  = sent_tokenize(s)
+    lower_sents = sent_tokenize(t)
+
+    for sent_orig, sent_lower in zip(orig_sents,lower_sents):
+        sent_lower = truecase(sent_lower)
+        # print(sent_lower)
+        # print(sent_orig)
+        # print("-")
+        score += rate_similarity(sent_lower, sent_orig)
+
+
     # put your code here
 
-    return 0.0
+    return score/len(orig_sents)
+
+
+def rate_similarity(sent1, sent2):
+    ''' compares two sentences, word for word and returns the percentage
+    of words that are identical.'''
+
+    sent1 = word_tokenize(sent1)
+    sent2 = word_tokenize(sent2)
+    count = 0
+    if not len(sent1) or not len(sent2):
+        return 0.0
+    # print(list(zip(sent1,sent2)))
+    for w1,w2 in zip(sent1, sent2):
+        if w1 == w2:
+            count += 1
+        else:
+            print(w1,w2)
+    return count/len(sent1)
+
+def build_sentence(sent_list):
+    '''takes a list of strings that constitute a tokenized sentence
+    and attempts to rebuild them into a string with some regex hackery.'''
+    sentence = ' '.join(sent_list) # join lists with space separators
+    return re.sub(""" (?=[?'`!.,;:@-])""", '', sentence) # find any "space then punctuation" errors and remove the space
+    # I probably missed some punctuation that needs replacing
+
+
+
 
 def to_capitalise(word):
     '''to capitalise, or not to capitalise...:
@@ -96,7 +178,7 @@ def to_capitalise(word):
 
 
 def build_index(in_file, out_file):
-    ''' builds an in index datafile based on some training text. builds
+    '''builds an in index datafile based on some training text. builds
     dictionaries with word capitalisation frequency and wordlength and capitalisation
     frequency.'''
 

@@ -15,7 +15,7 @@
 			"file": "588236.py",
 			"settings":
 			{
-				"buffer_size": 5778,
+				"buffer_size": 8640,
 				"line_ending": "Unix"
 			}
 		},
@@ -29,22 +29,23 @@
 			}
 		},
 		{
-			"contents": "[x for x in range(10)]",
+			"contents": "Python 3.2.5 (v3.2.5:cef745775b65, May 13 2013, 13:37:00) \n[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> import nltk\n>>> \n>>> from nltk.corpus import brown\n>>> categories = brown.categories()\n>>> genres = brown.categories()\n>>> result = [(x,y) for x in genres for y in brown.words(categories=[x])]\n>>> len(result)\n1161192\n>>> from nltk.probability import ConditionalFreqDist\n>>> cfd = ConditionalFreqDist(result)\n>>> cfd['told']\n<FreqDist with 0 samples and 0 outcomes>\n>>> cfd['adventure']['told']\n46\n>>> len(cfd['adventure'])\n8874\n>>> len(cfd)\n16\n>>> cfd\n<ConditionalFreqDist with 16 conditions>\n>>> cfd[]\n  File \"<stdin>\", line 1\n    cfd[]\n        ^\nSyntaxError: invalid syntax\n>>> cfd[:]\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: unhashable type: 'slice'\n>>> cfd.items()\ndict_items([('mystery', <FreqDist with 6982 samples and 57169 outcomes>), ('belles_lettres', <FreqDist with 18421 samples and 173096 outcomes>), ('humor', <FreqDist with 5017 samples and 21695 outcomes>), ('government', <FreqDist with 8181 samples and 70117 outcomes>), ('fiction', <FreqDist with 9302 samples and 68488 outcomes>), ('reviews', <FreqDist with 8626 samples and 40704 outcomes>), ('religion', <FreqDist with 6373 samples and 39399 outcomes>), ('romance', <FreqDist with 8452 samples and 70022 outcomes>), ('science_fiction', <FreqDist with 3233 samples and 14470 outcomes>), ('adventure', <FreqDist with 8874 samples and 69342 outcomes>), ('editorial', <FreqDist with 9890 samples and 61604 outcomes>), ('hobbies', <FreqDist with 11935 samples and 82345 outcomes>), ('lore', <FreqDist with 14503 samples and 110299 outcomes>), ('news', <FreqDist with 14394 samples and 100554 outcomes>), ('learned', <FreqDist with 16859 samples and 181888 outcomes>), ('told', <FreqDist with 0 samples and 0 outcomes>)])\n>>> 1<<2\n4\n>>> 1<<7\n128\n>>> 1&(1<<6)\n0\n>>> 1&(1<<0)\n1\n>>> len(brown.words())\n1161192\n>>> [x for x in range(10)]\n[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n>>> x\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'x' is not defined\n>>> [x for x in range(10) for x in x]\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\n  File \"<stdin>\", line 1, in <listcomp>\nTypeError: 'int' object is not iterable\n>>> [y for x in range(10) for x in x]\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\n  File \"<stdin>\", line 1, in <listcomp>\nTypeError: 'int' object is not iterable\n>>> x\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'x' is not defined\n>>> y\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'y' is not defined\n>>> \"hello and another word\"\n'hello and another word'\n>>> \n>>> \n>>> range(1)\nrange(0, 1)\n>>> a = \"word\"\n>>> a[-1]\n'd'\n>>> a[0]\n'w'\n>>> a[1]\n'o'\n>>> a[2]\n'r'\n>>> a[-2]\n'r'\n>>> from nltk.corpus import words\n>>> wordlist = words.words()\n>>> len(wordlist)\n235786\n>>> wordlist = [x for x in wordlist if x.istitle()]\n>>> len(wordlist)\n24258\n>>> from nltk.tokenize import sent_tokenize\n>>> \n>>> \n>>> a = \"The overweight dog ate another cake.\"\n>>> a += \" He then died.\"\n>>> a\n'The overweight dog ate another cake. He then died.'\n>>> sents = sent_tokenize(a)\n>>> sents\n['The overweight dog ate another cake.', 'He then died.']\n>>> for s in sents:\n... \n  File \"<stdin>\", line 2\n    \n    ^\nIndentationError: expected an indented block\n>>> \n>>> from nltk.tokenize import word_tokenize\n>>> for s in sents:\n... 	print word_tokenize(s)\n  File \"<stdin>\", line 2\n    print word_tokenize(s)\n                      ^\nSyntaxError: invalid syntax\n>>> 	print word_tokenize(s)\n  File \"<stdin>\", line 1\n    print word_tokenize(s)\n    ^\nIndentationError: unexpected indent\n>>> \n>>> \n>>> \n>>> \n>>> a = \"apples\"\n>>> a[0]\n'a'\n>>> a[0] = 'A'\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: 'str' object does not support item assignment\n>>> a.upper()\n'APPLES'\n>>> a\n'apples'\n>>> a[0].upper() + [1:]\n  File \"<stdin>\", line 1\n    a[0].upper() + [1:]\n                     ^\nSyntaxError: invalid syntax\n>>> a[0].upper() + a[1:]\n'Apples'\n>>> a[0].upper()\n'A'\n>>> a[1:]\n'pples'\n>>> a[0].upper() + a[1:]\n'Apples'\n>>> a\n'apples'\n>>> a.capitalize()\n'Apples'\n>>> a\n'apples'\n>>> a.capitalize()\n'Apples'\n>>> a.normalize()\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nAttributeError: 'str' object has no attribute 'normalize'\n>>> a\n'apples'\n>>> a\n'apples'\n>>> a\n'apples'\n>>> a.capitalize()\n'Apples'\n>>> \"kjdfhkdjfhfk\".capitalize()\n'Kjdfhkdjfhfk'\n>>> word_tokenize(\"\"\"Who's\"\"\")\n['Who', \"'s\"]\n>>> word_tokenize(\"\"\"Who's\"\"\").join()\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nAttributeError: 'list' object has no attribute 'join'\n>>> ''.join(word_tokenize(\"\"\"Who's\"\"\"))\n\"Who's\"\n>>> x = word_tokenize(\"\"\"Who's\"\"\")\n>>> re.sub(\" (?=[\\.,'!?:;])\", \"\", ' '.join(x))\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 're' is not defined\n>>> import re\n>>> re.sub(\" (?=[\\.,'!?:;])\", \"\", ' '.join(x))\n\"Who's\"\n>>> re.sub(\" (?=[\\.,'!?:;])\", '', ' '.join(x))\n\"Who's\"\n>>> re.sub(\"(?=[\\.,'!?:;])\", '', ' '.join(x))\n\"Who 's\"\n>>> re.sub(\" (?=[\\.,'!?:;])\", '', ' '.join(x))\n\"Who's\"\n>>> re.sub(\" ?=[\\.,'!?:;]\", '', ' '.join(x))\n\"Who 's\"\n>>> re.sub(\" ?=[/\\.,'!?:;]\", '', ' '.join(x))\n\"Who 's\"\n>>> re.sub(\" ()?=[/\\.,'!?:;])\", '', ' '.join(x))\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\n  File \"/Library/Frameworks/Python.framework/Versions/3.2/lib/python3.2/re.py\", line 170, in sub\n    return _compile(pattern, flags).sub(repl, string, count)\n  File \"/Library/Frameworks/Python.framework/Versions/3.2/lib/python3.2/re.py\", line 280, in _compile\n    p = sre_compile.compile(pattern, flags)\n  File \"/Library/Frameworks/Python.framework/Versions/3.2/lib/python3.2/sre_compile.py\", line 492, in compile\n    p = sre_parse.parse(p, flags)\n  File \"/Library/Frameworks/Python.framework/Versions/3.2/lib/python3.2/sre_parse.py\", line 708, in parse\n    raise error(\"unbalanced parenthesis\")\nsre_constants.error: unbalanced parenthesis\n>>> re.sub(\" (?=[/\\.,'!?:;])\", '', ' '.join(x))\n\"Who's\"\n>>> ",
 			"settings":
 			{
-				"buffer_size": 22,
-				"line_ending": "Unix",
-				"name": "[x for x in range(10)]"
-			}
-		},
-		{
-			"contents": "Python 3.2.5 (v3.2.5:cef745775b65, May 13 2013, 13:37:00) \n[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> Traceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: 'str' does not support the buffer interface\n>>> ",
-			"settings":
-			{
-				"buffer_size": 320,
+				"buffer_size": 6266,
 				"line_ending": "Unix",
 				"name": "*REPL* [python]",
 				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "Python 3.2.5 (v3.2.5:cef745775b65, May 13 2013, 13:37:00) \n[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n>>> import re\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who 's\")\n\"Who's\"\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who 's\")\n\"Who's\"\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who '''s\")\n\"Who'''s\"\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who s\")\n'Who s'\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who :s\")\n'Who:s'\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who 's\")\n\"Who's\"\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who .\")\n'Who.'\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who 's Who .\")\n\"Who's Who.\"\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"Who 's Who .\")\n\"Who's Who.\"\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"u wot m8?\")\n'u wot m8?'\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"u wot m8 ?\")\n'u wot m8?'\n>>> re.sub(\"\"\" (?=[.,\"'?;:])\"\"\", '', \"u w o t m 8 ?\")\n'u w o t m 8?'\n>>> import sys\n>>> sys.argv\n['']\n>>> sys.version()obj\n  File \"<stdin>\", line 1\n    sys.version()obj\n                   ^\nSyntaxError: invalid syntax\n>>> sys.version()\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: 'str' object is not callable\n>>> sys.version\n'3.2.5 (v3.2.5:cef745775b65, May 13 2013, 13:37:00) \\n[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)]'\n>>> \"hello\"())\n  File \"<stdin>\", line 1\n    \"hello\"())\n             ^\nSyntaxError: invalid syntax\n>>> \"hello\"()\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: 'str' object is not callable\n>>> \"string\".upper()\n'STRING'\n>>> \"string\".titlecase()\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nAttributeError: 'str' object has no attribute 'titlecase'\n>>> \"string\".capitalize()\n'String'\n>>> import cpickle\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nImportError: No module named cpickle\n>>> import pickle\n>>> import itertools\n>>> itertools.zip\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nAttributeError: 'module' object has no attribute 'zip'\n>>> itertools.izip\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nAttributeError: 'module' object has no attribute 'izip'\n>>> itertools.defaultdict()\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nAttributeError: 'module' object has no attribute 'defaultdict'\n>>> from itertools import izip\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nImportError: cannot import name izip\n>>> help(izip)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'izip' is not defined\n>>> help(itertools)\nHelp on built-in module itertools:\n\nNAME\n    itertools - Functional tools for creating and using iterators.\n\nDESCRIPTION\n    Infinite iterators:\n    count([n]) --> n, n+1, n+2, ...\n    cycle(p) --> p0, p1, ... plast, p0, p1, ...\n    repeat(elem [,n]) --> elem, elem, elem, ... endlessly or up to n times\n    \n    Iterators terminating on the shortest input sequence:\n    accumulate(p, start=0) --> p0, p0+p1, p0+p1+p2\n    chain(p, q, ...) --> p0, p1, ... plast, q0, q1, ... \n    compress(data, selectors) --> (d[0] if s[0]), (d[1] if s[1]), ...\n    dropwhile(pred, seq) --> seq[n], seq[n+1], starting when pred fails\n    groupby(iterable[, keyfunc]) --> sub-iterators grouped by value of keyfunc(v)\n    filterfalse(pred, seq) --> elements of seq where pred(elem) is False\n    islice(seq, [start,] stop [, step]) --> elements from\n           seq[start:stop:step]\n    starmap(fun, seq) --> fun(*seq[0]), fun(*seq[1]), ...\n    tee(it, n=2) --> (it1, it2 , ... itn) splits one iterator into n\n    takewhile(pred, seq) --> seq[0], seq[1], until pred fails\n    zip_longest(p, q, ...) --> (p[0], q[0]), (p[1], q[1]), ... \n    \n    Combinatoric generators:\n    product(p, q, ... [repeat=1]) --> cartesian product\n    permutations(p[, r])\n    combinations(p, r)\n    combinations_with_replacement(p, r)\n\nCLASSES\n    builtins.object\n        accumulate\n        chain\n        combinations\n        combinations_with_replacement\n        compress\n        count\n        cycle\n        dropwhile\n        filterfalse\n        groupby\n        islice\n        permutations\n        product\n        repeat\n        starmap\n        takewhile\n        zip_longest\n    \n    class accumulate(builtins.object)\n     |  accumulate(iterable) --> accumulate object\n     |  \n     |  Return series of accumulated sums.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class chain(builtins.object)\n     |  chain(*iterables) --> chain object\n     |  \n     |  Return a chain object whose .__next__() method returns elements from the\n     |  first iterable until it is exhausted, then elements from the next\n     |  iterable, until all of the iterables are exhausted.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  from_iterable(...)\n     |      chain.from_iterable(iterable) --> chain object\n     |      \n     |      Alternate chain() contructor taking a single iterable argument\n     |      that evaluates lazily.\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class combinations(builtins.object)\n     |  combinations(iterable, r) --> combinations object\n     |  \n     |  Return successive r-length combinations of elements in the iterable.\n     |  \n     |  combinations(range(4), 3) --> (0,1,2), (0,1,3), (0,2,3), (1,2,3)\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class combinations_with_replacement(builtins.object)\n     |  combinations_with_replacement(iterable, r) --> combinations_with_replacement object\n     |  \n     |  Return successive r-length combinations of elements in the iterable\n     |  allowing individual elements to have successive repeats.\n     |  combinations_with_replacement('ABC', 2) --> AA AB AC BB BC CC\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class compress(builtins.object)\n     |  compress(data, selectors) --> iterator over selected data\n     |  \n     |  Return data elements corresponding to true selector elements.\n     |  Forms a shorter iterator from selected data elements using the\n     |  selectors to choose the data elements.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class count(builtins.object)\n     |  count(start=0, step=1) --> count object\n     |  \n     |  Return a count object whose .__next__() method returns consecutive values.\n     |  Equivalent to:\n     |  \n     |      def count(firstval=0, step=1):\n     |      x = firstval\n     |      while 1:\n     |          yield x\n     |          x += step\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  __reduce__(...)\n     |      Return state information for pickling.\n     |  \n     |  __repr__(...)\n     |      x.__repr__() <==> repr(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class cycle(builtins.object)\n     |  cycle(iterable) --> cycle object\n     |  \n     |  Return elements from the iterable until it is exhausted.\n     |  Then repeat the sequence indefinitely.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class dropwhile(builtins.object)\n     |  dropwhile(predicate, iterable) --> dropwhile object\n     |  \n     |  Drop items from the iterable while predicate(item) is true.\n     |  Afterwards, return every element until the iterable is exhausted.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class filterfalse(builtins.object)\n     |  filterfalse(function or None, sequence) --> filterfalse object\n     |  \n     |  Return those items of sequence for which function(item) is false.\n     |  If function is None, return the items that are false.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class groupby(builtins.object)\n     |  groupby(iterable[, keyfunc]) -> create an iterator which returns\n     |  (key, sub-iterator) grouped by each value of key(value).\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class islice(builtins.object)\n     |  islice(iterable, [start,] stop [, step]) --> islice object\n     |  \n     |  Return an iterator whose next() method returns selected values from an\n     |  iterable.  If start is specified, will skip all preceding elements;\n     |  otherwise, start defaults to zero.  Step defaults to one.  If\n     |  specified as another value, step determines how many values are \n     |  skipped between successive calls.  Works like a slice() on a list\n     |  but returns an iterator.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class permutations(builtins.object)\n     |  permutations(iterable[, r]) --> permutations object\n     |  \n     |  Return successive r-length permutations of elements in the iterable.\n     |  \n     |  permutations(range(3), 2) --> (0,1), (0,2), (1,0), (1,2), (2,0), (2,1)\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class product(builtins.object)\n     |  product(*iterables) --> product object\n     |  \n     |  Cartesian product of input iterables.  Equivalent to nested for-loops.\n     |  \n     |  For example, product(A, B) returns the same as:  ((x,y) for x in A for y in B).\n     |  The leftmost iterators are in the outermost for-loop, so the output tuples\n     |  cycle in a manner similar to an odometer (with the rightmost element changing\n     |  on every iteration).\n     |  \n     |  To compute the product of an iterable with itself, specify the number\n     |  of repetitions with the optional repeat keyword argument. For example,\n     |  product(A, repeat=4) means the same as product(A, A, A, A).\n     |  \n     |  product('ab', range(3)) --> ('a',0) ('a',1) ('a',2) ('b',0) ('b',1) ('b',2)\n     |  product((0,1), (0,1), (0,1)) --> (0,0,0) (0,0,1) (0,1,0) (0,1,1) (1,0,0) ...\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class repeat(builtins.object)\n     |  repeat(object [,times]) -> create an iterator which returns the object\n     |  for the specified number of times.  If not specified, returns the object\n     |  endlessly.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __length_hint__(...)\n     |      Private method returning an estimate of len(list(it)).\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  __repr__(...)\n     |      x.__repr__() <==> repr(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class starmap(builtins.object)\n     |  starmap(function, sequence) --> starmap object\n     |  \n     |  Return an iterator whose values are returned from the function evaluated\n     |  with a argument tuple taken from the given sequence.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class takewhile(builtins.object)\n     |  takewhile(predicate, iterable) --> takewhile object\n     |  \n     |  Return successive entries from an iterable as long as the \n     |  predicate evaluates to true for each entry.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n    \n    class zip_longest(builtins.object)\n     |  zip_longest(iter1 [,iter2 [...]], [fillvalue=None]) --> zip_longest object\n     |  \n     |  Return an zip_longest object whose .__next__() method returns a tuple where\n     |  the i-th element comes from the i-th iterable argument.  The .__next__()\n     |  method continues until the longest iterable in the argument sequence\n     |  is exhausted and then it raises StopIteration.  When the shorter iterables\n     |  are exhausted, the fillvalue is substituted in their place.  The fillvalue\n     |  defaults to None or can be specified by a keyword argument.\n     |  \n     |  Methods defined here:\n     |  \n     |  __getattribute__(...)\n     |      x.__getattribute__('name') <==> x.name\n     |  \n     |  __iter__(...)\n     |      x.__iter__() <==> iter(x)\n     |  \n     |  __next__(...)\n     |      x.__next__() <==> next(x)\n     |  \n     |  ----------------------------------------------------------------------\n     |  Data and other attributes defined here:\n     |  \n     |  __new__ = <built-in method __new__ of type object>\n     |      T.__new__(S, ...) -> a new object with type S, a subtype of T\n\nFUNCTIONS\n    tee(...)\n        tee(iterable, n=2) --> tuple of n independent iterators.\n\nFILE\n    (built-in)\n\n\n>>> string_tokenize(\"\"\"Who are \"they\"?\"\"\")\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'string_tokenize' is not defined\n>>> from nltk.tokenize import word_tokenize\n>>> word_tokenize(\"\"\"Who are \"they\"?\"\"\")\n['Who', 'are', '``', 'they', \"''\", '?']\n>>> help(words_tokenize)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'words_tokenize' is not defined\n>>> help(word_tokenize)\nHelp on function word_tokenize in module nltk.tokenize:\n\nword_tokenize(text)\n    Return a tokenized copy of *text*,\n    using NLTK's recommended word tokenizer\n    (currently :class:`.TreebankWordTokenizer`).\n    This tokenizer is designed to work on a sentence at a time.\n\n>>> help(nltk.tokenize)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'nltk' is not defined\n>>> help(nltk.tokenize())\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'nltk' is not defined\n>>> help(nltk)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nNameError: name 'nltk' is not defined\n>>> import nltk\n>>> \"a\".islower()\nTrue\n>>> ",
+			"settings":
+			{
+				"buffer_size": 21022,
+				"line_ending": "Unix",
+				"name": "*REPL* [python]",
 				"scratch": true
 			}
 		}
@@ -52,36 +53,56 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 347.0,
+		"height": 287.0,
 		"selected_items":
 		[
 			[
-				"packa",
-				"Package Control: Upgrade Package"
+				"python",
+				"SublimeREPL: Python"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ssc",
+				"Set Syntax: C"
+			],
+			[
+				"sspy",
+				"Set Syntax: Python"
+			],
+			[
+				"sspyth",
+				"Set Syntax: Python"
+			],
+			[
+				"ssjava",
+				"Set Syntax: Java"
+			],
+			[
+				"ssja",
+				"Set Syntax: Java"
 			],
 			[
 				"instal",
 				"Package Control: Install Package"
 			],
 			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
-				"python",
-				"SublimeREPL: Python"
-			],
-			[
-				"pep",
-				"User: Python PEP8 Autoformat"
-			],
-			[
 				"pyth",
 				"SublimeREPL: Python"
 			],
 			[
-				"sspy",
-				"Set Syntax: Python"
+				"packa",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pep",
+				"User: Python PEP8 Autoformat"
 			],
 			[
 				"pytho",
@@ -98,10 +119,6 @@
 			[
 				"pep8",
 				"User: Python PEP8 Autoformat"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"intel",
@@ -124,7 +141,11 @@
 	},
 	"console":
 	{
-		"height": 125.0
+		"height": 125.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
 	},
 	"distraction_free":
 	{
@@ -137,18 +158,26 @@
 	},
 	"file_history":
 	[
+		"/Users/lucas/Documents/Code/Java/HelloWorld.java",
+		"/Users/lucas/Documents/Code/C/Algorithms/power_set.c",
+		"/Users/lucas/Documents/Code/C/linkedlist.c",
+		"/Users/lucas/Documents/Code/C/mandelbrot.c",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/workshop2_ex3.py",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/workshop2_ex2.py",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/workshop2.py",
 		"/Users/lucas/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/lucas/Documents/Code/Python/Language & Computation/Project 1/project1.sublime-project"
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -156,6 +185,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"itertools.izip",
+			"...",
+			"\n..."
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -163,6 +195,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"zip"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -179,17 +212,18 @@
 				{
 					"buffer": 0,
 					"file": "588236.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5778,
+						"buffer_size": 8640,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5023,
-								5023
+								3305,
+								3305
 							]
 						],
 						"settings":
@@ -391,7 +425,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1351.0,
+						"translation.y": 778.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -399,6 +433,7 @@
 				{
 					"buffer": 1,
 					"file": "test.txt",
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 89,
@@ -525,155 +560,27 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"settings":
-					{
-						"buffer_size": 22,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								22,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_name": "[x for x in range(10)]",
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2.0,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5.0,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10.0,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"sublime_auto_complete": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 3,
+					"buffer": 2,
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 320,
+						"buffer_size": 6266,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								261,
-								315
+								6266,
+								6266
 							]
 						],
 						"settings":
@@ -681,108 +588,6 @@
 							"auto_complete": true,
 							"auto_complete_commit_on_tab": true,
 							"auto_indent": false,
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2.0,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5.0,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10.0,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
 							"detect_indentation": false,
 							"gutter": false,
 							"history_arrows": true,
@@ -790,7 +595,7 @@
 							"line_numbers": false,
 							"repl": true,
 							"repl_external_id": "python",
-							"repl_id": "e0ef1f53326f492dbc48a2c675a1dddc",
+							"repl_id": "5b029b58021c492db4e85dc7cdc9e2d7",
 							"repl_restart_args":
 							{
 								"cmd":
@@ -809,15 +614,73 @@
 								"syntax": "Packages/Python/Python.tmLanguage",
 								"type": "subprocess"
 							},
-							"repl_sublime2": true,
+							"repl_sublime2": false,
 							"smart_indent": false,
 							"spell_check": false,
-							"sublime_auto_complete": true,
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2336.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21022,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21022,
+								21022
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
+							"auto_complete_commit_on_tab": true,
+							"auto_indent": false,
+							"detect_indentation": false,
+							"gutter": false,
+							"history_arrows": true,
+							"indent_subsequent_lines": false,
+							"line_numbers": false,
+							"repl": true,
+							"repl_external_id": "python",
+							"repl_id": "bf4b4330fb934e52b291aeca34ce3278",
+							"repl_restart_args":
+							{
+								"cmd":
+								[
+									"python3",
+									"-i",
+									"-u"
+								],
+								"cwd": "$file_path",
+								"encoding": "utf8",
+								"extend_env":
+								{
+									"PYTHONIOENCODING": "utf-8"
+								},
+								"external_id": "python",
+								"syntax": "Packages/Python/Python.tmLanguage",
+								"type": "subprocess"
+							},
+							"repl_sublime2": false,
+							"smart_indent": false,
+							"spell_check": false,
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 8444.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -853,7 +716,7 @@
 		"cols":
 		[
 			0.0,
-			0.621286359213,
+			0.480918787448,
 			1.0
 		],
 		"rows":
@@ -867,9 +730,10 @@
 	{
 		"height": 100.0
 	},
+	"project": "project1.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -888,10 +752,24 @@
 		],
 		"width": 0.0
 	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 150.0,
-	"status_bar_visible": true
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
 }

@@ -1,0 +1,17 @@
+"See! That shit keeps popping up on my fucking computer!" says a blond woman as she leans back on a couch, bottle-feeding a baby on her lap.
+
+The woman is visible from thousands of miles away on a hacker's computer. The hacker has infected her machine with a remote administration tool (RAT) that gives him access to the woman's screen, to her webcam, to her files, to her microphone. He watches her and the baby through a small control window open on his Windows PC, then he decides to have a little fun. He enters a series of shock and pornographic websites and watches them appear on the woman's computer.
+
+The woman is startled. "Did it scare you?" she asks someone off camera. A young man steps into the webcam frame. "Yes," he says. Both stare at the computer in horrified fascination. A picture of old naked men appears in their Web browser, then vanishes as a McAfee security product blocks a "dangerous site."
+
+"I think someone hacked into our computer," says the young man.
+
+Far away, the hacker opens his "Fun Manager" control panel, which provides a host of tools for messing with his RAT victims. He can hide their Windows "Start" button or the taskbar or the clock or the desktop, badly confusing many casual Windows users. He can have their computer speak to them. Instead, he settles for popping open the remote computer's optical drive.
+
+Even over the webcam, the sound of shock is clear. "Stay right here," says the woman.
+
+"Whoa!... the DVD thing just opened," says the young man.
+
+The hacker sends the pair a message that reads "achoo!" and the young man laughs in astonishment. "Disconnect from the Internet," he says. "Your laptop's going to go kaboom next."
+
+The video freezes, the mayhem lasting for slightly more than one minute. Copies of the incident aren't hard to find. They're on YouTube, along with thousands of other videos showing RAT controller (or "ratters," as they will be called here) taunting, pranking, or toying with victims. But, of course, the kinds of people who watch others through their own webcams aren't likely to limit themselves to these sorts of mere hijinks—not when computers store and webcams record far more intimate material.
