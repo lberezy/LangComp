@@ -17,6 +17,38 @@ been useful? Briefly describe a possible application of this software.
 This program aims to programmatically determine the correct casing for
 the sentences in a text. In order for this to be effective the program
 must be able to do more than simply capitalise the first word of a sentence.
+
+The main method of improving accuracy is to tokenize each word in the sentence and
+check for its exclusion or inclusion in various sample sets, for instance, a set may contain
+a large number of commonly found lowercase words. If the tested word does not exist in this set
+then the likelyhood that it is a potentially capitalised word increases. A similar thing occurs for
+testing if the word is an acronym or other fully upercase token.
+
+The personal pronoun 'I' and the identifier 'a' are usually capitalised as stated, so checked are made
+on those and capitalised accordingly (as long as the 'a' does not start a sentence or is inside a quote block).
+
+Quote blocks are another thing to watch out for. The first word inside a quoted piece of text is usually
+capitalised, so a check is made for that. e.g. 'Word word word "A phrase!", she said.'
+
+The capitalisation of the first word of a sentence was slightly less trivial than usually imagined as there
+exists corner cases, like an entire sentence being quoted and thus the first alphabet character of the string
+needs to be capitalised.
+
+This program also includes a 'build' function that attempts to build some probability distributions of words
+and their capitalisation frequency from a user-supplied piece of text. The aim of these was to enable a word
+to be looked-up and a probability of capitalisation returns, and if this sufficiently high, the word capitalised.
+
+
+Issues encountered:
+    -   The word tokenizer behaves oddly some quoted texts, sometimes returning `` and '' tokens and at other times
+        returning the expected "" tokens.
+    -   Having truecase() return a string was causing problems with re-tokenization later during correctness comparison
+        so it instead returns a list of words. It's probably an issue with my regex substitution in build_sentence(sent_list).
+    -   Sentence tokenization of a phrase like "word word word ""where are you?" said someone." results in two sentences
+        and requires a correction to the capitalisation of the first letter of a 'sentence' code to check if the first
+        character is not a space.
+
+
 One method that is used to increase the probability of success is a dictionary
 file containing the lowercased words and their relative probability of appearing
 capitalised in a text. This data will need to be gathered by a helper function in
@@ -83,6 +115,8 @@ def truecase(s, threshold=0.8):
     s_original = s[:]  # shallow copy'''
 
     for i, c in enumerate(s):   # capitalise the first alphabet character
+        if c == ' ':    # potentially a broken quote, don't capitalise in this case
+            break
         if c.isalpha():
             s = s[:i] + s[i:].capitalize()
             break
