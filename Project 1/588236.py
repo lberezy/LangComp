@@ -62,7 +62,7 @@ part of a spellchecker that automatically corrected capitalisation.
 
 wordlist = set(words.words())
 common_words_lower = set([w for w in wordlist if w.islower()])
-common_words_titlecase = set([w.lower() for w in wordlist if w.istitle()])
+common_words_titlecase = set([w.lower() for w in wordlist if (w.istitle() and w not in common_words_lower)])
 common_words_fullcaps = set([w.lower() for w in wordlist if w.isupper()])
 
 def truecase(s, threshold=0.8):
@@ -81,12 +81,18 @@ def truecase(s, threshold=0.8):
     d_file.close()
 
     s_original = s[:]  # shallow copy'''
-    s = s.capitalize()
+
+    for i, c in enumerate(s):   # capitalise the first alphabet character
+        if c.isalpha():
+            s = s[:i] + s[i:].capitalize()
+            break
+
+    new_sent = []
     words = word_tokenize(s)
     
     for i in range(1,len(words)):   # begin at second item
         if words[i-1] in set(['"',"''",'''“''','.','!','?','``']): # capitalise the first word inside any weird quotes
-            print(words[i])
+            #print(words[i])
             words[i] = words[i].capitalize()
 
     #words = [w.capitalize() if w not in common_words_lower and len(w) >= 2 else w for w in words]
@@ -94,26 +100,29 @@ def truecase(s, threshold=0.8):
     #words = [w.upper() if w in common_words_fullcaps and len(w) > 2 else w for w in words]
 
     for word in words:
-        if word not in common_words_lower:
+        #if word.lower() not in common_words_lower:
+        #    word = word.capitalize()
+        if word.lower() in common_words_titlecase:
             word = word.capitalize()
-        if word in common_words_titlecase:
-            words = word.capitalize()
-        if word in common_words_fullcaps:
-            word = word.upper()
+        # if word.lower() in common_words_fullcaps:
+        #     word = word.upper()
 
         if word in 'iI':    # any occurance of a lone I should be capitalised
             #print(word)
             word = word.capitalize()
-        if word  == 'a':    # any occurance of a lone a should be lowercase
+        if word  == 'A':    # any occurance of a lone a should be lowercase
             #print(word)
             word = word.lower()
+        new_sent.append(word)
+
 
     # check to capitalise anything a .!? etc and the first thing inside "quotes"
 
 
-    sentence_string = build_sentence(words)
+    #sentence_string = build_sentence(new_sent)
     #return sentence_string
-    return words
+        # was causing issues with re-tokenization
+    return new_sent
 
 def evaluate(s):
     '''Helper function to evaluate the truecase function.
@@ -142,22 +151,25 @@ def evaluate(s):
     return score/len(orig_sents)*100
 
 
-def rate_similarity(sent1, sent2):
+def rate_similarity(sent1_list, sent2):
     ''' compares two sentences, word for word and returns the percentage
     of words that are identical.'''
 
-    #sent1 = word_tokenize(sent1)
-    sent2 = word_tokenize(sent2)
+    sent1_words = sent1_list
+    sent2_words = word_tokenize(sent2)
     count = 0
-    if not len(sent1) or not len(sent2):
+    if not len(sent1_list) or not len(sent2):
         return 0.0
+        print("Bang!")
     # print(list(zip(sent1,sent2)))
-    for w1,w2 in zip(sent1, sent2):
+    for w1,w2 in zip(sent1_words, sent2_words):
         if w1 == w2:
             count += 1
-        # else:
-            #print(w1,w2)
-    return count/len(sent2)
+        else:
+            print(sent1_words)
+            print("Old: " + sent2)
+            print('-')
+    return count/len(sent2_words)
 
 def build_sentence(sent_list):
     '''takes a list of strings that constitute a tokenized sentence
