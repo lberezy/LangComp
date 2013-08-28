@@ -8,7 +8,7 @@
 import re
 import sys
 import pickle
-from nltk.corpus import words, brown, treebank
+from nltk.corpus import words, brown, treebank # treebank takes a while
 from nltk.probability import ConditionalFreqDist
 from nltk.tokenize import word_tokenize, sent_tokenize
 
@@ -42,7 +42,7 @@ capitalised.
 
 This program also includes a 'build' function that attempts to build some
 probability distributions of words and their capitalisation frequency from a
-user-supplied piece of text (currently still broken). This
+user-supplied piece of text (currently still broken).
 
 
 Issues encountered:
@@ -56,50 +56,45 @@ Issues encountered:
     sentences, making it hard to know if the first word of a sentence was
     really that. Overcome by capitalising the first alphabet character seen
     in a sentence.
+    - Upon comparison, the sentences of a text would lose sync with each
+    other, causing wrong sentences to be compared and large drops in accuracy.
+    I've not found a good fix for this yet.
 
 
-One method that is used to increase the probability of success is a dictionary
-file containing the lowercased words and their relative probability of appearing
-capitalised in a text. This data will need to be gathered by a helper function
-in advance. This will work quite well for acronyms and other words that are
-fully capitalised and names/proper nouns, however, it is expected to work less
-effectively for words that have no default case preference. In order to combat
-this, the NLTK's Part of Speech (POS) tagging functions will be used to better
-guess the class for each word and this data can then be used to augment the
-trained tool heuristic.
+This program relies heavily on the strategy of looking up a word in a dictionary
+(a ConditionalFreqDist was coerced into this) to find the most frequent form
+of the word. A problem that occurs from this is when there are ambiguities in
+the capitalisation of a word (names of place, for example 'Game of Thrones', 
+Corner Hotel', etc). In an attempt to combat this problem, the frequency
+distribution is only generated from text that is found within a sentence that
+has been removed of its head (first word). During the truecase() function,
+a word is only capitalised if it has a length >= 3 in order to avoid Issues
+with short, commonly lower-cased words and only if the frequency of the most
+common capitalisation choice is greater than some threshold value. I tried
+a range of values, and 0.5 came out to be optimal. Why, I am not entirely sure.
+
 
 Other sources of useful linguistic information would be a distribution of word-
 lengths and probability of title casing. A very useful, but probably
 unobtainable source of information would be a perfect part of speech tagging
-system that could perfectly infer the correct word type based on context in a
-sentence.
+system that could perfectly infer the correct word type/POS based on context in 
+a sentence and capitalise appropriately (proper nouns, etc). Perhaps a large
+list of common proper nouns, acronyms and words with concrete spelling (months
+of the year, country names, names of inventions, etc) would have been useful to
+augment the building of the data file (finding and reading in all this data
+turned out to be very messy). However, I've found that the data I did use
+contained a reasonable amount of this data already. It would have been superiour
+to separate this data so it could be checked definitely during truecasing, and 
+not with a threshold probability of capitalisation.
 
-A use of this type of program would be in customer-facing natural language query
-systems where it cannot be guaranteed the use will use correct casing. If
+A use of this type of program may be in customer-facing natural language query
+systems where it cannot be guaranteed the user will use correct casing. If
 correct casing can be guessed from the input it makes discovering contextual
 meaning of their input easier and may make certain backend queries simpler
 (correctly casing the name of a movie in a natural language request for
 information on the movie, and the movies' actor allows simpler extraction of the
 key information as it can be tagged as a proper noun easier). Could also be used
 as part of a spellchecker that automatically corrected capitalisation. """
-
-# PROBLEMS:
-# nltk.tokenizer.word_tokenizer() tokenizes "" as `` ''
-
-
-
-# ------
-# optionally import NLTK modules here (e.g. tokenizer or corpus)
-
-
-# how to tokenize "and then he said ""where are you?" said someone."
-# ? and then . in a single sentence.
-
-# when building the data file, don't be tricked by title cased words at the start of
-# the text
-
-
-
 
 # need some global data variables
 
@@ -146,17 +141,18 @@ def truecase(s, threshold = 0.5):
             if len(word) > 3 and word not in common_words_lower:
                 word = word.capitalize()
 
-        #if word.lower() in common_words_titlecase:
-        #    word = word.capitalize()
         if word =='i':    # any occurance of a lone 'I' should be capitalised
             word = word.capitalize()
         if word == 'A':    # any occurance of a lone a should be lowercase
             word = word.lower()
         new_sent.append(word)
 
-        # fixes a strange issue where the very first sentence of a text
-        # would not get capitalised
-        new_sent[0] = new_sent[0].capitalize()
+        if word.lower() in common_words_titlecase:
+            word = word.upper()
+
+    # fixes a strange issue where the very first sentence of a text
+    # would not get capitalised
+    new_sent[0] = new_sent[0].capitalize()
     return build_sentence(new_sent)
 
 
@@ -182,7 +178,7 @@ def evaluate(s):
 
 
 def rate_similarity(sent1, sent2):
-    '''Compares two sentences, word for word and returns the percentage
+    '''Compares two sentences, word for word and returns the fraction
     of words that are identical.'''
 
     sent1_words = word_tokenize(sent1)
@@ -213,6 +209,7 @@ def build_sentence(sent_list):
 
 
 def load_data(data_filename):
+    '''Loads data from pickle file into global variables.'''
     try:
         data_file = open(data_filename, 'rb')
     except IOError:
@@ -231,8 +228,8 @@ def load_data(data_filename):
 
 def build_index(out_filename, in_filename = None):
     '''Builds data files for word lookup. Can take an optional input file
-    to add to the data pool which is processed. Data is then dumped to a
-    pickle file.'''
+    to add to the data pool which is processed (not working).
+    Data is then dumped to a pickle file.'''
 
     sents_data = []
     try:
