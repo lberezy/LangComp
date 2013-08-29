@@ -8,23 +8,19 @@
 import re
 import sys
 import pickle
-from nltk.corpus import words, brown, treebank # treebank takes a while
+from nltk.corpus import words, brown, treebank  # treebank takes a while
 from nltk.probability import ConditionalFreqDist
 from nltk.tokenize import word_tokenize, sent_tokenize
 
-""" <approximately 400 words of discussion about what your program does, and
-what problems you tacked and solved (or could not solve). Are there other
-sources of linguistic information that would have been useful? Briefly describe
-a possible application of this software.
-
+"""
 This program aims to programmatically determine the correct casing for the
 sentences in a text. In order for this to be effective the program must be able
 to do more than simply capitalise the first word of a sentence.
 
 The main method of improving accuracy is to tokenize each word in the sentence
 and check for its exclusion or inclusion in various sample sets, e.g. a
-set may contain a large number of comsmonly found lowercase words. If the tested
-word does not exist in this set then the likelyhood that it is a potentially
+set may contain a large number of commonly found lowercase words. If the tested
+word does not exist in this set then the likelihood that it is a potentially
 capitalised word increases.
 
 The personal pronoun 'I' and the article 'a' are usually capitalised as stated,
@@ -94,7 +90,8 @@ meaning of their input easier and may make certain backend queries simpler
 (correctly casing the name of a movie in a natural language request for
 information on the movie, and the movies' actor allows simpler extraction of the
 key information as it can be tagged as a proper noun easier). Could also be used
-as part of a spellchecker that automatically corrected capitalisation. """
+as part of a spellchecker that automatically corrected capitalisation.
+"""
 
 # need some global data variables
 
@@ -105,7 +102,6 @@ common_words_titlecase = set([w.lower() for w in wordlist if (w.istitle() and w 
 def truecase(s, threshold = 0.5):
     '''Attempts to correctly capitalise words in a sentence.
     Returns a string.'''
-    print(s)
     # capitalise the first alphabet character, not simply the first
     s = s.capitalize()
     for i, c in enumerate(s):
@@ -117,7 +113,6 @@ def truecase(s, threshold = 0.5):
 
     new_sent = []
     words = word_tokenize(s)
-    new_words = []
 
     for i in range(1, len(words)-1):   # begin at second item
         # capitalise the first word inside any weird quotes
@@ -141,9 +136,9 @@ def truecase(s, threshold = 0.5):
             if len(word) > 3 and word not in common_words_lower:
                 word = word.capitalize()
 
-        if word =='i':    # any occurance of a lone 'I' should be capitalised
+        if word == 'i':  # any occurance of a lone 'I' should be capitalised
             word = word.capitalize()
-        if word == 'A':    # any occurance of a lone a should be lowercase
+        if word == 'A':  # any occurance of a lone a should be lowercase
             word = word.lower()
         new_sent.append(word)
 
@@ -188,8 +183,8 @@ def rate_similarity(sent1, sent2):
         print("Warning: Something's going wrong!")
         return 0.0
 
-    print("\nNew: " + sent1)
-    print("Old: " + sent2)
+    # print("\nNew: " + sent1)
+    # print("Old: " + sent2)
     for w1, w2 in zip(sent1_words, sent2_words):
         if w1 == w2:
             count += 1
