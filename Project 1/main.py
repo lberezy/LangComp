@@ -1,9 +1,9 @@
 # L&C Project 1
 # Lucas BEREZY
-# Student Number: 588236
+
 # Python 3.2.5
 
-# ~$ 'python3 588236.py build' to create new data file.
+# ~$ 'python3 main.py build' to create new data file.
 
 import re
 import sys
@@ -60,7 +60,7 @@ Issues encountered:
 This program relies heavily on the strategy of looking up a word in a dictionary
 (a ConditionalFreqDist was coerced into this) to find the most frequent form
 of the word. A problem that occurs from this is when there are ambiguities in
-the capitalisation of a word (names of place, for example 'Game of Thrones', 
+the capitalisation of a word (names of place, for example 'Game of Thrones',
 Corner Hotel', etc). In an attempt to combat this problem, the frequency
 distribution is only generated from text that is found within a sentence that
 has been removed of its head (first word). During the truecase() function,
@@ -73,14 +73,14 @@ a range of values, and 0.5 came out to be optimal. Why, I am not entirely sure.
 Other sources of useful linguistic information would be a distribution of word-
 lengths and probability of title casing. A very useful, but probably
 unobtainable source of information would be a perfect part of speech tagging
-system that could perfectly infer the correct word type/POS based on context in 
+system that could perfectly infer the correct word type/POS based on context in
 a sentence and capitalise appropriately (proper nouns, etc). Perhaps a large
 list of common proper nouns, acronyms and words with concrete spelling (months
 of the year, country names, names of inventions, etc) would have been useful to
 augment the building of the data file (finding and reading in all this data
 turned out to be very messy). However, I've found that the data I did use
 contained a reasonable amount of this data already. It would have been superiour
-to separate this data so it could be checked definitely during truecasing, and 
+to separate this data so it could be checked definitely during truecasing, and
 not with a threshold probability of capitalisation.
 
 A use of this type of program may be in customer-facing natural language query
@@ -250,7 +250,7 @@ def build_index(out_filename, in_filename = None):
     # wordlist.update(treebank.words())
     # common_words_lower = set([w for w in wordlist if w.islower()])
     # common_words_titlecase = set([w.lower() for w in wordlist if (w.istitle() and w not in common_words_lower)])
-    
+
     out_file = open(out_filename, 'wb')
     pickle.dump(cfd, out_file, 2)
     # pickle.dump(common_words_lower, out_file, 2)
